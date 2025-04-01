@@ -202,6 +202,7 @@ export default function MapView({
           [endLocation.lat, endLocation.lng]
         ];
       } else {
+        console.log("change")
         // No route to draw
         return;
       }
