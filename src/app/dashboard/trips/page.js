@@ -116,6 +116,7 @@ export default function TripListView() {
             <TripCard 
               key={trip.id} 
               trip={formatTripData(trip)} 
+              routeData={trip.route}
             />
           ))}
         </div>

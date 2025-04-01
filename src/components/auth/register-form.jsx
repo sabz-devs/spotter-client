@@ -34,8 +34,10 @@ export function RegisterForm() {
       return
     }
     
+    
     try {
-      await register(name, email, password)
+      let confirm_password = confirmPassword
+      await register(name, email, password,confirm_password)
       router.push("/login?registered=true")
     } catch (error) {
       setError(error instanceof Error ? error.message : "Registration failed")

@@ -26,7 +26,7 @@ const DEFAULT_TRIP = {
   distance: null
 }
 
-export default function TripCard({ trip = DEFAULT_TRIP }) {
+export default function TripCard({ trip = DEFAULT_TRIP,routeData }) {
   // Safe status colors with fallback
   const statusColors = {
     planned: "bg-blue-100 text-blue-800 border-blue-200",
@@ -71,6 +71,14 @@ export default function TripCard({ trip = DEFAULT_TRIP }) {
       default: return '#e5e7eb'
     }
   }
+
+  const handleMapNavigation = () => {
+    console.log("Clicked")
+    if (routeData) {
+      sessionStorage.setItem(`route_${trip.id}`, JSON.stringify(routeData));
+    }
+    window.location.href = `/dashboard/map/${trip.id}`;
+  };
 
   return (
     <Card className="overflow-hidden transition-all hover:shadow-md border-l-4" 
@@ -148,13 +156,16 @@ export default function TripCard({ trip = DEFAULT_TRIP }) {
           label="Logs" 
           variant="outline" 
         />
-        <ActionButton 
-          href={`/trips/${trip?.id || '#'}/track`} 
-          icon={PenToolIcon} 
-          label="Track" 
-          variant="default" 
-          primaryColor="#F94961"
-        />
+      <Button 
+  onClick={handleMapNavigation} 
+  variant="default" 
+  size="sm" 
+  className="flex-1"
+  style={{ backgroundColor: "#F94961", borderColor: "#F94961" }}
+>
+  <PenToolIcon className="h-4 w-4 mr-1" />
+  Map Route
+</Button>
       </CardFooter>
     </Card>
   )
